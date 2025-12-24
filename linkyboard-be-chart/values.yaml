@@ -1,0 +1,22 @@
+namespace: linkyboard
+
+replicaCount: 1
+
+image:
+  repository: ""
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  name: linkyboard-be-service
+  port: 8080
+  type: ClusterIP
+
+database:
+  url: ""
+  username: ""
+  password: ""
+
+ingress:
+  host: api.linkyboard.com
+  entryPoint: web
