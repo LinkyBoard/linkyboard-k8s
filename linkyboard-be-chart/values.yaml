@@ -2,6 +2,7 @@ namespace: linkyboard
 
 replicaCount: 1
 
+# values.yaml
 image:
   repository: ""
   tag: ""
@@ -14,7 +15,7 @@ service:
 
 database:
   url: "" 
-  username: ""
+  username: "" 
   password: ""
 
 ingress:

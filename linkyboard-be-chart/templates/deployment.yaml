@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: linkyboard-be
   namespace: {{ .Values.namespace }}
+  labels:
+    app: linkyboard-be
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

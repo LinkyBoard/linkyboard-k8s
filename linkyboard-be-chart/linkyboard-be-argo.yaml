@@ -12,6 +12,11 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+      parameters:
+        - name: "image.repository"
+          value: "zmflspa123/linkyboard"
+        - name: "image.tag"
+          value: "latest"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: linkyboard
