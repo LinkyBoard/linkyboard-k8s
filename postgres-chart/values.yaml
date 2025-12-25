@@ -1,0 +1,32 @@
+namespace: linkyboard
+
+replicaCount: 1
+
+image:
+  repository: pgvector/pgvector
+  tag: pg16
+  pullPolicy: IfNotPresent
+
+service:
+  name: linkyboard-postgres
+  port: 5432
+  type: ClusterIP
+
+postgres:
+  database: linkyboard
+  user: linkyboard
+
+storage:
+  size: 20Gi
+  storageClassName: cinder-retain
+
+storageClass:
+  create: false
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "1Gi"
+  limits:
+    cpu: "2"
+    memory: "2Gi"
