@@ -2,10 +2,9 @@ namespace: linkyboard
 
 replicaCount: 1
 
-# values.yaml
 image:
-  repository: ""
-  tag: ""
+  repository: zmflspa123/linkyboard
+  tag: v0.1.5
   pullPolicy: IfNotPresent
 
 service:
