@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: linkyboard-be-route
+  name: linkyboard-ai-route
   namespace: {{ .Values.namespace }}
 spec:
   entryPoints:

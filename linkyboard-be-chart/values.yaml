@@ -5,8 +5,7 @@ replicaCount: 1
 image:
   repository: zmflspa123/linkyboard
   tag: "v0.1.7"
-    #pullPolicy: IfNotPresent
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 service:
   name: linkyboard-be-service

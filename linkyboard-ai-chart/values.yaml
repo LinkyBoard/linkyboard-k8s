@@ -1,0 +1,49 @@
+namespace: linkyboard
+
+replicaCount: 1
+
+image:
+  repository: wonjun0120/linkyboard-ai
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  name: linkyboard-ai-service
+  port: 80
+  type: ClusterIP
+
+database:
+  host: linkyboard-postgres
+  db: linkyboard
+  username: ""      
+  password: ""      
+
+ai:
+  openaiApiKey: ""  
+  model: gpt-4o-mini
+
+ingress:
+  host: ai.linkyboard.com
+  entryPoint: web
+
+redis:
+  enabled: true
+  host: linkyboard-redis
+  port: 6379
+  password: ""       
+
+s3:
+  endpoint: ""
+  bucketContents: ""
+  region: ""
+  accessKey: ""
+  secretKey: ""     
+
+security:
+  secretKey: ""     
+  internalApiKey: ""  
+
+langfuse:
+  secretKey: ""     
+  publicKey: ""     
+  host: ""           
