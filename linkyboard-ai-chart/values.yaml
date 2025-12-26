@@ -3,7 +3,7 @@ namespace: linkyboard
 replicaCount: 1
 
 image:
-  repository: linkyboard-ai-api
+  repository: wonjun0120/linkyboard-ai-api
   tag: latest
   pullPolicy: IfNotPresent
 
