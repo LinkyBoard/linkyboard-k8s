@@ -20,11 +20,6 @@ spec:
           ports:
             - containerPort: {{ .Values.service.port }}
           env:
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: POSTGRES_HOST
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
@@ -35,13 +30,40 @@ spec:
                 secretKeyRef:
                   name: linkyboard-ai-secret
                   key: POSTGRES_PASSWORD
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: linkyboard-ai-secret
+                  key: POSTGRES_HOST
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   name: linkyboard-ai-secret
                   key: POSTGRES_DB
+
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
+            
+            - name: REDIS_URL
+              value: "redis://linkyboard-redis:6379/0"
+
+            - name: APP_ENV
+              value: "production"
+            - name: DEBUG
+              value: "false"
+
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: linkyboard-ai-secret
                   key: OPENAI_API_KEY
+            - name: INTERNAL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: linkyboard-ai-secret
+                  key: INTERNAL_API_KEY
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: linkyboard-ai-secret
+                  key: SECRET_KEY
