@@ -28,7 +28,7 @@ ingress:
 
 redis:
   enabled: true
-  host: linkyboard-redis
+host: linkyboard-redis-master
   port: 6379
   password: ""       
 

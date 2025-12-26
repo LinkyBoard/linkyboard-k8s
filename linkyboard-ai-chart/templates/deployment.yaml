@@ -20,76 +20,46 @@ spec:
           ports:
             - containerPort: {{ .Values.service.port }}
           env:
+            # --- 데이터베이스 설정 (조합 방식) ---
             - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: POSTGRES_USER
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: POSTGRES_USER } }
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: POSTGRES_PASSWORD
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: POSTGRES_PASSWORD } }
             - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: POSTGRES_HOST
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: POSTGRES_HOST } }
             - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: POSTGRES_DB
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: POSTGRES_DB } }
             - name: DATABASE_URL
               value: "postgresql+asyncpg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)"
             
+            # --- 레디스 설정 (비밀번호 + 마스터 서비스 이름 적용) ---
+            - name: REDIS_PASSWORD
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: REDIS_PASSWORD } }
             - name: REDIS_URL
-              value: "redis://linkyboard-redis:6379/0"
+              value: "redis://:$(REDIS_PASSWORD)@linkyboard-redis-master:6379/0"
 
+            # --- 애플리케이션 기본 설정 ---
             - name: APP_ENV
               value: "production"
             - name: DEBUG
               value: "false"
 
+            # --- 보안 및 API 키 (Secret 참조) ---
             - name: INTERNAL_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: INTERNAL_API_KEY
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: INTERNAL_API_KEY } }
             - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: SECRET_KEY
-
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: SECRET_KEY } }
             - name: OPENAI_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: OPENAI_API_KEY
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: OPENAI_API_KEY } }
 
+            # --- S3 설정 (Secret 참조) ---
             - name: S3_ENDPOINT
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: S3_ENDPOINT
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: S3_ENDPOINT } }
             - name: S3_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: S3_ACCESS_KEY
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: S3_ACCESS_KEY } }
             - name: S3_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: S3_SECRET_KEY
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: S3_SECRET_KEY } }
             - name: S3_BUCKET_CONTENTS
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: S3_BUCKET_CONTENTS
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: S3_BUCKET_CONTENTS } }
             - name: S3_REGION
-              valueFrom:
-                secretKeyRef:
-                  name: linkyboard-ai-secret
-                  key: S3_REGION
+              valueFrom: { secretKeyRef: { name: linkyboard-ai-secret, key: S3_REGION } }
